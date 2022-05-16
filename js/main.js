@@ -112,20 +112,13 @@ for (let i = 0 ; i < posts.length ; i++) {
     postListHTML.innerHTML += post;
 }
 
-const likeBtn = document.querySelector(".like-button");
+const likeBtn = document.querySelectorAll(".like-button");
 let likeCounter = document.querySelector(".js-likes-counter");
-likeBtn.addEventListener("click",
-    function () {
-        likeBtn.classList.add("like-button--liked");
-        likeCounter.innerHTML += Number(1);
-    }
-);
-
-// const likeBtn = document.querySelector(".like-button");
-// let likeCounter = document.querySelector(".js-likes-counter");
-// likeBtn.addEventListener("click",
-//     function () {
-//         likeBtn.classList.add("like-button--liked");
-//         likeCounter = `${posts[i].likes} + 1`;
-//     }
-// );
+for (let i = 0 ; i < likeBtn.length ; i++) {
+    likeBtn[i].addEventListener("click",
+        function () {
+            likeBtn.classList.add("like-button--liked");
+            likeCounter.innerHTML += Number(1);
+        }
+    );
+}
