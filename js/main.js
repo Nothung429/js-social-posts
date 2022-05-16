@@ -10,7 +10,7 @@
 // 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone
 
 //------ FUNCTION ------//
-function stampPost (name, profile, like, photo, text) {
+function stampPost (name, profile, like, photo, text, date) {
     return `
         <div class="post">
             <div class="post__header">
@@ -20,7 +20,7 @@ function stampPost (name, profile, like, photo, text) {
                     </div>
                     <div class="post-meta__data">
                         <div class="post-meta__author">${name}</div>
-                        <div class="post-meta__time">4 mesi fa</div>
+                        <div class="post-meta__time">${date}</div>
                     </div>                    
                 </div>
             </div>
@@ -48,15 +48,15 @@ function stampPost (name, profile, like, photo, text) {
 //------ MAIN ------//
 const posts = [
     {
-        id : 1,
-        content : "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
-        media : "https://unsplash.it/600/300?image=171",
         author : {
             name : "Phil Mangione",
             image : "https://unsplash.it/300/300?image=15"
         },
+        created : "2021-06-25",
+        content : "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
+        media : "https://unsplash.it/600/300?image=171",
         likes : 80,
-        created : "2021-06-25"
+        id : 1
     },
     {
         id : 2,
@@ -108,7 +108,7 @@ console.log(posts);
 const postListHTML = document.querySelector("#container");
 
 for (let i = 0 ; i < posts.length ; i++) {
-    let post = stampPost (posts[i].author.image, posts[i].author.name, posts[i].content, posts[i].media, posts[i].likes);
+    let post = stampPost (posts[i].author.image, posts[i].author.name, posts[i].created, posts[i].content, posts[i].media, posts[i].likes);
     console.log(post);
     postListHTML.innerHTML += post;
 }
