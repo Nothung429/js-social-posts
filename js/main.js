@@ -10,7 +10,7 @@
 // 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone
 
 //------ FUNCTION ------//
-function stampPost (name, profile, likes, photo, text) {
+function stampPost (name, profile, like, photo, text) {
     return `
         <div class="post">
             <div class="post__header">
@@ -26,7 +26,7 @@ function stampPost (name, profile, likes, photo, text) {
             </div>
             <div class="post__text">${text}</div>
             <div class="post__image">
-                <img src="${photo}" alt="">
+                <img src="${photo}" alt="post photo">
             </div>
             <div class="post__footer">
                 <div class="likes js-likes">
@@ -37,7 +37,7 @@ function stampPost (name, profile, likes, photo, text) {
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
+                        Piace a <b id="like-counter-1" class="js-likes-counter">${like}</b> persone
                     </div>
                 </div> 
             </div>
@@ -108,8 +108,9 @@ console.log(posts);
 const postListHTML = document.querySelector("#container");
 
 for (let i = 0 ; i < posts.length ; i++) {
-    const post =  stampPost (posts[i].author.image, posts[i].author.name, posts[i].content, posts[i].media, posts[i].likes);
+    let post = stampPost (posts[i].author.image, posts[i].author.name, posts[i].content, posts[i].media, posts[i].likes);
     console.log(post);
     postListHTML.innerHTML += post;
 }
 console.log(postListHTML);
+// posts[i].author.image, posts[i].author.name
