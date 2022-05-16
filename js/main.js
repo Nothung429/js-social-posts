@@ -113,12 +113,23 @@ for (let i = 0 ; i < posts.length ; i++) {
 }
 
 const likeBtn = document.querySelectorAll(".like-button");
-let likeCounter = document.querySelector(".js-likes-counter");
+console.log(likeBtn);
 for (let i = 0 ; i < likeBtn.length ; i++) {
     likeBtn[i].addEventListener("click",
         function () {
-            likeBtn.classList.add("like-button--liked");
-            likeCounter.innerHTML += Number(1);
+            likeBtn[i].classList.add("like-button--liked");
         }
     );
 }
+console.log(likeBtn);
+
+let likeCounter = document.querySelectorAll(".js-likes-counter");
+console.log(likeCounter);
+for (let i = 0 ; i < likeCounter.length ; i++) {
+    likeCounter[i].addEventListener("click",
+        function () {
+            likeCounter[i].innerHTML += 1;
+        }
+    );
+}
+console.log(likeCounter);
