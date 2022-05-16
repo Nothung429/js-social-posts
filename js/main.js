@@ -105,10 +105,11 @@ const posts = [
 ];
 console.log(posts);
 
-const postListHTML = document.querySelector(".posts-list");
+const postListHTML = document.querySelector("#container");
 
 for (let i = 0 ; i < posts.length ; i++) {
     const post =  stampPost (posts[i].author.image, posts[i].author.name, posts[i].content, posts[i].media, posts[i].likes);
     console.log(post);
-    posts.innerHTML += post;
+    postListHTML.innerHTML += post;
 }
+console.log(postListHTML);
