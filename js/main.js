@@ -108,7 +108,24 @@ console.log(posts);
 const postListHTML = document.querySelector("#container");
 
 for (let i = 0 ; i < posts.length ; i++) {
-    let post = stampPost (posts[i].author.image, posts[i].author.name, posts[i].created, posts[i].content, posts[i].media, posts[i].likes);
+    const post = stampPost (posts[i].author.image, posts[i].author.name, posts[i].created, posts[i].content, posts[i].media, posts[i].likes);
     postListHTML.innerHTML += post;
 }
 
+const likeBtn = document.querySelector(".like-button");
+let likeCounter = document.querySelector(".js-likes-counter");
+likeBtn.addEventListener("click",
+    function () {
+        likeBtn.classList.add("like-button--liked");
+        likeCounter.innerHTML += Number(1);
+    }
+);
+
+// const likeBtn = document.querySelector(".like-button");
+// let likeCounter = document.querySelector(".js-likes-counter");
+// likeBtn.addEventListener("click",
+//     function () {
+//         likeBtn.classList.add("like-button--liked");
+//         likeCounter = `${posts[i].likes} + 1`;
+//     }
+// );
