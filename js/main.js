@@ -10,7 +10,7 @@
 // 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone
 
 //------ FUNCTION ------//
-function stampPost (name, profile, like, photo, text, date) {
+function stampPost (profile, name, date, text, photo, like) {
     return `
         <div class="post">
             <div class="post__header">
@@ -48,15 +48,15 @@ function stampPost (name, profile, like, photo, text, date) {
 //------ MAIN ------//
 const posts = [
     {
+        id : 1,
+        content : "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
+        media : "https://unsplash.it/600/300?image=171",
         author : {
             name : "Phil Mangione",
             image : "https://unsplash.it/300/300?image=15"
         },
-        created : "2021-06-25",
-        content : "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
-        media : "https://unsplash.it/600/300?image=171",
         likes : 80,
-        id : 1
+        created : "2021-06-25"
     },
     {
         id : 2,
@@ -86,7 +86,7 @@ const posts = [
         media : "https://unsplash.it/600/400?image=24",
         author : {
             name : "Luca Formicola",
-            image : null
+            image : "https://unsplash.it/300/300?image=180"
         },
         likes : 56,
         created : "2021-04-03"
@@ -109,8 +109,6 @@ const postListHTML = document.querySelector("#container");
 
 for (let i = 0 ; i < posts.length ; i++) {
     let post = stampPost (posts[i].author.image, posts[i].author.name, posts[i].created, posts[i].content, posts[i].media, posts[i].likes);
-    console.log(post);
     postListHTML.innerHTML += post;
 }
-console.log(postListHTML);
-// posts[i].author.image, posts[i].author.name
+
