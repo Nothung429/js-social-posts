@@ -5,17 +5,18 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!------ font awesome ------>
         <script src="https://kit.fontawesome.com/1e3be9b4ce.js" crossorigin="anonymous"></script>
+        <!------ link css ------>
         <link rel="stylesheet" href="css/style.css">
         <title>Social Posts</title>
     </head>
 
     <body>
         <h1 class="main-title">Social Posts</h1>
-
         <div id="container" class="posts-list">
-
             <!-- post di esempio/template, da togliere/commentare e generare da JS -->
+            <!------------------------------------------>
             <template id="template-post">
                 <div class="post">
                     <div class="post__header">
@@ -48,8 +49,8 @@
                     </div>
                 </div>
             </template>
+            <!------------------------------------------>
         </div>
-        
         <script src="js/main.js"></script>
     </body>
 
@@ -60,4 +61,10 @@
     Milestone 1 - Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed
     Milestone 2 - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo
     Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like 
+-->
+
+<!-- bonus esercizio
+    1. Formattare le date in formato italiano (gg/mm/aaaa)
+    2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF)
+    3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone
 -->

@@ -1,4 +1,17 @@
 //------ FUNCTION ------//
+function europeDate (date) {
+    return date.split("-").reverse().join("-");
+}
+function getInitials(name) {
+    const nameArray = name.split(" ");
+    let initials = "";
+    let i = 0;
+    while (i < nameArray.length && i < 2) {
+        initials += nameArray[i][0];
+        i++;
+    }
+    return initials;
+}
 
 //------ MAIN ------//
 const posts = [
@@ -68,14 +81,17 @@ for (let i = 0 ; i < posts.length ; i++) {
     const post = templateHTML.cloneNode(true);
     // scorporare l'oggetto nei suoi componenti più piccoli con questa proprietà
     const {id, content, media, author, likes, created} = posts[i];
-    if (author.image !== null) {
+    if(author.image !== null) {
         post.querySelector(".profile-pic").src = author.image;
         post.querySelector(".profile-pic").alt = author.name;
     }
-    post.querySelector(".profile-pic").src = author.image;
-    post.querySelector(".profile-pic").alt = author.name;
+    // 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF)
+    else {
+        post.querySelector(".post-meta__icon").innerHTML = `<div class="profile-pic-default">${getInitials(author.name)}</div>`;
+    }
     post.querySelector(".post-meta__author").innerHTML = author.name;
-    post.querySelector(".post-meta__time").innerHTML = created;
+    // 1. Formattare le date in formato italiano (gg/mm/aaaa)
+    post.querySelector(".post-meta__time").innerHTML = europeDate(created);
     post.querySelector(".post__text").innerHTML = content;
     post.querySelector(".post__image img").src = media;
     post.querySelector(".post__image img").alt = `Image post ${id}`;
@@ -86,18 +102,19 @@ for (let i = 0 ; i < posts.length ; i++) {
         function (e) {
             e.preventDefault();
             const id = this.dataset.postid;
+            const likeCounter = document.querySelector(`#like-counter-${id}`);
+            // 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone
             if (!postLiked.includes(id)) {
                 this.classList.add("like-button--liked");
-                document.querySelector(`#like-counter-${id}`).innerHTML++;
+                likeCounter.innerHTML++;
                 postLiked.push(id);
+            } else {
+                this.classList.remove("like-button--liked");
+                likeCounter.innerHTML--;
+                postLiked.splice(i, 1);
             }
         }
     );
     console.log(post);
     postListHTML.append(post);
 }
-
-// BONUS
-// 1. Formattare le date in formato italiano (gg/mm/aaaa)
-// 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF)
-// 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone
