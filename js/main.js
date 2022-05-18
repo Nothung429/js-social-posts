@@ -71,8 +71,6 @@ const posts = [
         created : "2021-03-05"
     }
 ];
-console.log(posts);
-
 const postListHTML = document.querySelector("#container");
 const templateHTML = document.querySelector("#template-post").content;
 const postLiked = [];
@@ -115,6 +113,5 @@ for (let i = 0 ; i < posts.length ; i++) {
             }
         }
     );
-    console.log(post);
     postListHTML.append(post);
 }
