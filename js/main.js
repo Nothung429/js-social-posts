@@ -1,49 +1,4 @@
-// Ricreiamo un feed social aggiungendo al layout di base fornito, il nostro script JS in cui:
-// Milestone 1 - Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed
-// Milestone 2 - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo
-
-// Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like
-
-// BONUS
-// 1. Formattare le date in formato italiano (gg/mm/aaaa)
-// 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF)
-// 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone
-
 //------ FUNCTION ------//
-function stampPost (profile, name, date, text, photo, like) {
-    return `
-        <div class="post">
-            <div class="post__header">
-                <div class="post-meta">
-                    <div class="post-meta__icon">
-                        <img class="profile-pic" src="${profile}" alt="Phil Mangione">                    
-                    </div>
-                    <div class="post-meta__data">
-                        <div class="post-meta__author">${name}</div>
-                        <div class="post-meta__time">${date}</div>
-                    </div>                    
-                </div>
-            </div>
-            <div class="post__text">${text}</div>
-            <div class="post__image">
-                <img src="${photo}" alt="post photo">
-            </div>
-            <div class="post__footer">
-                <div class="likes js-likes">
-                    <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
-                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                            <span class="like-button__label">Mi Piace</span>
-                        </a>
-                    </div>
-                    <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${like}</b> persone
-                    </div>
-                </div> 
-            </div>
-        </div>
-    `;
-}
 
 //------ MAIN ------//
 const posts = [
@@ -86,7 +41,7 @@ const posts = [
         media : "https://unsplash.it/600/400?image=24",
         author : {
             name : "Luca Formicola",
-            image : "https://unsplash.it/300/300?image=180"
+            image : null
         },
         likes : 56,
         created : "2021-04-03"
@@ -106,19 +61,43 @@ const posts = [
 console.log(posts);
 
 const postListHTML = document.querySelector("#container");
+const templateHTML = document.querySelector("#template-post").content;
+const postLiked = [];
 
 for (let i = 0 ; i < posts.length ; i++) {
-    const post = stampPost (posts[i].author.image, posts[i].author.name, posts[i].created, posts[i].content, posts[i].media, posts[i].likes);
-    postListHTML.innerHTML += post;
-}
-
-const likeBtn = document.querySelectorAll(".like-button");
-let likeCounter = document.querySelectorAll(".js-likes-counter");
-for (let i = 0 ; i < likeBtn.length ; i++) {
-    likeBtn[i].addEventListener("click",
-        function () {
-            likeBtn[i].add("like-button--liked");
-            likeCounter[i].innerHTML += 1;
+    const post = templateHTML.cloneNode(true);
+    // scorporare l'oggetto nei suoi componenti più piccoli con questa proprietà
+    const {id, content, media, author, likes, created} = posts[i];
+    if (author.image !== null) {
+        post.querySelector(".profile-pic").src = author.image;
+        post.querySelector(".profile-pic").alt = author.name;
+    }
+    post.querySelector(".profile-pic").src = author.image;
+    post.querySelector(".profile-pic").alt = author.name;
+    post.querySelector(".post-meta__author").innerHTML = author.name;
+    post.querySelector(".post-meta__time").innerHTML = created;
+    post.querySelector(".post__text").innerHTML = content;
+    post.querySelector(".post__image img").src = media;
+    post.querySelector(".post__image img").alt = `Image post ${id}`;
+    post.querySelector(".js-like-button").dataset.postid = id;
+    post.querySelector(".js-likes-counter").innerHTML = likes;
+    post.querySelector(".js-likes-counter").id = `like-counter-${id}`;
+    post.querySelector(".js-like-button").addEventListener("click",
+        function (e) {
+            e.preventDefault();
+            const id = this.dataset.postid;
+            if (!postLiked.includes(id)) {
+                this.classList.add("like-button--liked");
+                document.querySelector(`#like-counter-${id}`).innerHTML++;
+                postLiked.push(id);
+            }
         }
     );
+    console.log(post);
+    postListHTML.append(post);
 }
+
+// BONUS
+// 1. Formattare le date in formato italiano (gg/mm/aaaa)
+// 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF)
+// 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone
